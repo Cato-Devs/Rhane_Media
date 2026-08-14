@@ -75,14 +75,14 @@ contactForm.addEventListener('submit', (e) => {
 
   if (!name || !email) {
     formNote.textContent = 'Please fill in your name and email.';
-    formNote.style.color = '#e2a63b';
+    formNote.style.color = '#ff0a6c';
     return;
   }
 
   // No backend connected yet — this just confirms the form works.
   // Wire this up to your email service, form endpoint, or CRM later.
   formNote.textContent = `Thanks, ${name.split(' ')[0]} — your response has been received.`;
-  formNote.style.color = '#1f9b91';
+  formNote.style.color = '#e034ea';
   contactForm.reset();
 });
 
