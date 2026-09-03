@@ -64,7 +64,7 @@ if (apertureBlades && heroVisual && window.matchMedia('(hover: hover)').matches)
   });
 }
 
-// ===== Contact form (frontend only — no backend wired up yet) =====
+// ===== Contact form — sends to rhanemediake@gmail.com via Formspree =====
 const contactForm = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
 
@@ -79,11 +79,28 @@ contactForm.addEventListener('submit', (e) => {
     return;
   }
 
-  // No backend connected yet — this just confirms the form works.
-  // Wire this up to your email service, form endpoint, or CRM later.
-  formNote.textContent = `Thanks, ${name.split(' ')[0]} — your response has been received.`;
+  formNote.textContent = 'Sending...';
   formNote.style.color = '#e034ea';
-  contactForm.reset();
+
+  fetch('https://formspree.io/f/meaqkwbq', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: new FormData(contactForm)
+  })
+    .then(response => {
+      if (response.ok) {
+        formNote.textContent = `Thanks, ${name.split(' ')[0]} — your response has been received.`;
+        formNote.style.color = '#e034ea';
+        contactForm.reset();
+      } else {
+        formNote.textContent = 'Something went wrong — please try again or email us directly.';
+        formNote.style.color = '#ff0a6c';
+      }
+    })
+    .catch(() => {
+      formNote.textContent = 'Something went wrong — please try again or email us directly.';
+      formNote.style.color = '#ff0a6c';
+    });
 });
 
 // ===== Footer year =====
