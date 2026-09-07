@@ -105,3 +105,13 @@ contactForm.addEventListener('submit', (e) => {
 
 // ===== Footer year =====
 document.getElementById('year').textContent = new Date().getFullYear();
+// ===== Hero slideshow =====
+const heroSlides = document.querySelectorAll('.hero-slideshow__slide');
+if (heroSlides.length) {
+  let currentSlide = 0;
+  setInterval(() => {
+    heroSlides[currentSlide].classList.remove('is-active');
+    currentSlide = (currentSlide + 1) % heroSlides.length;
+    heroSlides[currentSlide].classList.add('is-active');
+  }, 4000);
+}
