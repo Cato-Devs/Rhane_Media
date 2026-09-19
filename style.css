@@ -506,7 +506,7 @@ textarea{ resize:vertical; }
    ========================================================= */
 @media (max-width: 980px){
   .hero__inner{ grid-template-columns:1fr; }
-  .hero__visual{ order:-1; max-width:280px; margin:0 auto; }
+  .hero__visual{ width:100%; max-width:280px; margin:0 auto; }
   .about__inner{ grid-template-columns:1fr; }
   .services__grid{ grid-template-columns:repeat(2, 1fr); }
   .portfolio__grid{ grid-template-columns:repeat(2, 1fr); }
