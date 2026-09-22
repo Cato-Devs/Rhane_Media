@@ -214,9 +214,6 @@ input,select,textarea{ font-family:inherit; }
 .hero__stats dt{ font-family:var(--font-display); font-size:2.1rem; color:var(--gold); font-weight:700; }
 .hero__stats dd{ margin:0.2rem 0 0; font-size:0.78rem; color:var(--muted); font-family:var(--font-mono); letter-spacing:0.03em; }
 
-/* Hero visual: the animated aperture keeps its exact motion/JS hook,
-   just recolored via the tokens above, with a faint engraved watermark
-   of the real logo mark glowing behind it. */
 .hero__visual{ position:relative; display:flex; justify-content:center; align-items:center; }
 .hero__visual::before{
   content:"";
@@ -331,6 +328,8 @@ input,select,textarea{ font-family:inherit; }
   gap:1.25rem;
 }
 .service-card{
+  position:relative;
+  overflow:hidden;
   background:var(--surface);
   border:1px solid var(--surface-line);
   border-radius:var(--radius);
@@ -338,9 +337,34 @@ input,select,textarea{ font-family:inherit; }
   transition:border-color .2s ease, transform .2s ease;
 }
 .service-card:hover{ border-color:var(--gold-dim); transform:translateY(-4px); }
+
+/* Faded background image layer — sits behind the content, doesn't
+   change the card's base --surface color, just adds texture under it. */
+.service-card__bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0.16;              /* balanced fade — raise toward 0.22 for more visible, lower toward 0.1 for subtler */
+  z-index:0;
+  pointer-events:none;
+  transition:opacity .25s ease, transform .4s ease;
+}
+.service-card:hover .service-card__bg{ opacity:0.22; transform:scale(1.04); }
+
+/* Keep card content above the background image */
+.service-card__top,
+.service-card h3,
+.service-card p{
+  position:relative;
+  z-index:1;
+}
+
 .service-card__top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:1.4rem; }
 .service-card__setting{ font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.08em; color:var(--teal-bright); }
 .service-card__focus{
+  position:relative;
+  z-index:1;
   width:14px; height:14px; border-radius:50%;
   border:1.5px solid var(--gold-dim);
   transition:transform .25s ease, border-color .25s ease;
